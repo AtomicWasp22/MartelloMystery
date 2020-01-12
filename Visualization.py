@@ -30,6 +30,8 @@ background_image = pygame.image.load("Floor-Plan.png").convert()
 
 timer_font = pygame.font.SysFont('Comic Sans MS', 30)
 name_font = pygame.font.SysFont('Comic Sans MS', 14)
+legend_font = pygame.font.SysFont('Comic Sans MS', 14)
+title_font = pygame.font.SysFont('Comic Sans MS', 14)
 
 screen.fill(pygame.Color("white"))
 screen.blit(background_image, [0, 0])
@@ -66,9 +68,19 @@ while not complete:
         screen.blit(background_image, [0, 0])
 
         #repaint time
-        screen.fill(pygame.Color("white"), (800, 0, 400, 100))
+        screen.fill(pygame.Color("white"), (800, 0, 400, 700))
         time = timer_font.render("Time: " + datetime.datetime.utcfromtimestamp(current_time).strftime('%Y-%m-%d %H:%M:%S'), False, (0, 0, 0))
         screen.blit(time, (800,0))
+
+        title = title_font.render("Last Known Locations:", False, (0,0,0))
+
+        #legend creation
+        count = 2
+        for i in guests.keys():
+            count += 1
+            guest = legend_font.render(i + ": " + guests[i], True, (255,0,0))
+            screen.blit(guest, (800, 40* count))
+
 
         #init list of sensors
         used_locations = []
