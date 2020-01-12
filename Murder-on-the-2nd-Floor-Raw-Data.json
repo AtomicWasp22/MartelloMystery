@@ -420,7 +420,7 @@
         "guest-id": "Jason"
     }, 
     "1578158162": {
-        "device": "door sensor", 
+        "device": "rdoor senso",
         "device-id": "210", 
         "event": "door closed", 
         "guest-id": "Marc-Andre"

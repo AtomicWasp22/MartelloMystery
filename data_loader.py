@@ -5,13 +5,6 @@ device_inventory = {}
 #test_sensor = Sensor()
 with open("Murder-on-the-2nd-Floor-Raw-Data.json") as file:
     data = json.load(file)
-    """
-    time = "1578151801"
-event = data[time]
-device = data[event]["device-id"]
-
-device_inventory[device].addEvent(event)
-"""
 
 
     for time in data:
