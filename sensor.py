@@ -1,15 +1,14 @@
-from EventLog import EventLog
+from Event import Event
 class Sensor:
     """Represents a sensor"""
-
-    events = EventLog
 
     def __init__(self, device_type, device_id):
         self.device_type = device_type
         self.device_id = device_id
-        self.event_log = EventLog() #Custom Event Log class
+        self.event_log = [] #Custom Event Log class
 
     def addEvent(self, time, event):
-        self.events += event
+        self.event_log.append(Event(time, event))
 
-    def 
+    def __str__(self):
+        return "Device Type: %s, Device ID: %s" % (self.device_type, self.device_id)
