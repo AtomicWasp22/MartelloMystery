@@ -19,5 +19,6 @@ with open("Murder-on-the-2nd-Floor-Raw-Data.json") as file:
         device_inventory[device_id].addEvent(time, event)
 
 for dev in device_inventory:
-    for event in device_inventory[dev].event_log:
-        print(event)
+    print(dev.__str__())
+    ##for event in device_inventory[dev].event_log:
+        #print(event)
