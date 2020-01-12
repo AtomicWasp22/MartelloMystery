@@ -1,5 +1,8 @@
 import pygame
 import json
+import data_loader
+
+data_loader.load_data()
 
 
 with open("Murder-on-the-2nd-Floor-Raw-Data.json") as file:
@@ -33,6 +36,10 @@ paused = False
 
 current_time = 1578151801
 
+guests = {}
+
+
+
 while not complete:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -48,6 +55,9 @@ while not complete:
         screen.fill(pygame.Color("white"), (900, 0, 300, 100))
         time = timer_font.render("Time: " + str(current_time), False, (0, 0, 0))
         screen.blit(time, (900,0))
+
+        guests.update({data[current_time]["guest-id"]: data[current_time]["device-id"]})
+
 
         current_time += 1
         pygame.display.flip()
