@@ -36,20 +36,21 @@ screen.blit(background_image, [0, 0])
 
 paused = False
 
-current_time = 1578151801
+#current_time = 1578151801
 final_time = 1578236760
 
 
 guests = {}
 
-#user_date = input("Time at which to begin surveillance (in Datetime e.g. 2020-01-04 15:30:01): ")
-#dt = datetime.datetime.strptime(user_date, "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=-5)
+user_date = input("Time at which to begin surveillance (in Datetime e.g. 2020-01-04 15:30:01): ")
+dt = datetime.datetime.strptime(user_date, "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=-5)
 
 
-#current_time = time.mktime(dt.timetuple())
+current_time = int(datetime.datetime.timestamp(dt))
 
 
 while not complete:
+    #keyboard event handling
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             complete = True
@@ -61,17 +62,22 @@ while not complete:
                     paused = True
 
     if not paused:
+        #refresh background
         screen.blit(background_image, [0, 0])
 
+        #repaint time
         screen.fill(pygame.Color("white"), (800, 0, 400, 100))
         time = timer_font.render("Time: " + datetime.datetime.utcfromtimestamp(current_time).strftime('%Y-%m-%d %H:%M:%S'), False, (0, 0, 0))
         screen.blit(time, (800,0))
 
+        #init list of sensors
         used_locations = []
 
+        #Add/Update last known location
         if str(current_time) in data.keys():
             guests.update({data[str(current_time)]["guest-id"]: data[str(current_time)]["device-id"]})
 
+        #Write the last known locations of each guest
         for i in guests.keys():
             guest = name_font.render(i, True, (255,0,0))
 
@@ -83,12 +89,7 @@ while not complete:
             used_locations.append(guests[i])
 
             screen.blit(guest, (device_inventory[guests[i]].x, device_inventory[guests[i]].y + y_offset))
-            #print(guest, device_inventory[guests[i]].x, device_inventory[guests[i]].y)
 
-
-        #veron = name_font.render("Veronica", True, (0, 0, 0))
-
-        #screen.blit(veron, (device_inventory[guests["Veronica"]].x, device_inventory[guests["Veronica"]].y))
         current_time += 1
         pygame.display.flip()
 
