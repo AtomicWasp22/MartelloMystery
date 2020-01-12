@@ -23,7 +23,9 @@ complete = False
 clock = pygame.time.Clock()
 background_image = pygame.image.load("Floor-Plan.png").convert()
 
-my_font = pygame.font.SysFont('Comic Sans MS', 30)
+timer_font = pygame.font.SysFont('Comic Sans MS', 30)
+name_font = pygame.font.SysFont('Comic Sans MS', 8)
+
 screen.fill(pygame.Color("white"))
 screen.blit(background_image, [0, 0])
 
@@ -32,7 +34,6 @@ paused = False
 current_time = 1578151801
 
 while not complete:
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             complete = True
@@ -44,17 +45,13 @@ while not complete:
                     paused = True
 
     if not paused:
-        #do nothing
-        pass
-    else:
-
         screen.fill(pygame.Color("white"), (900, 0, 300, 100))
-        time = my_font.render("Time: " + str(current_time), False, (0, 0, 0))
+        time = timer_font.render("Time: " + str(current_time), False, (0, 0, 0))
         screen.blit(time, (900,0))
 
-    if not paused:
         current_time += 1
         pygame.display.flip()
-        clock.tick(clock_tick_rate)
+
+    clock.tick(clock_tick_rate)
 
 pygame.quit()
