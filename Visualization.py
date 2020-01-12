@@ -2,6 +2,7 @@ import pygame
 import json
 import data_loader
 import datetime
+import time
 
 device_inventory = data_loader.load_data()
 
@@ -41,6 +42,11 @@ final_time = 1578236760
 
 guests = {}
 
+#user_date = input("Time at which to begin surveillance (in Datetime e.g. 2020-01-04 15:30:01): ")
+#dt = datetime.datetime.strptime(user_date, "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=-5)
+
+
+#current_time = time.mktime(dt.timetuple())
 
 
 while not complete:
@@ -67,9 +73,17 @@ while not complete:
             guests.update({data[str(current_time)]["guest-id"]: data[str(current_time)]["device-id"]})
 
         for i in guests.keys():
-            guest = name_font.render(i, True, (0,0,0))
-            screen.blit(guest, (device_inventory[guests[i]].x, device_inventory[guests[i]].y))
-            print(guest, device_inventory[guests[i]].x, device_inventory[guests[i]].y)
+            guest = name_font.render(i, True, (255,0,0))
+
+            if used_locations.count(guests[i]) > 0:
+                y_offset = used_locations.count(guests[i]) * 20
+            else:
+                y_offset = 0
+
+            used_locations.append(guests[i])
+
+            screen.blit(guest, (device_inventory[guests[i]].x, device_inventory[guests[i]].y + y_offset))
+            #print(guest, device_inventory[guests[i]].x, device_inventory[guests[i]].y)
 
 
         #veron = name_font.render("Veronica", True, (0, 0, 0))
